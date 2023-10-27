@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class ResultsBoard {
+
+    static TreeMap<Double, String> students = new TreeMap<>();
+    static TreeMap<Double, String> reverseStudents = new TreeMap<>(Collections.reverseOrder());
+    static List<String> top3 = new ArrayList<>();
+    String name;
+    double score;
+
+    static void addStudent(double score, String name) {
+        ResultsBoard resultsBoard = new ResultsBoard();
+        resultsBoard.name = name;
+        resultsBoard.score = score;
+        students.put(score, name);
+
+    }
+
+    static void excellentStudents() {
+        reverseStudents.putAll(students);
+        Iterator<Map.Entry<Double, String>> entries = reverseStudents.entrySet().iterator();
+        for (int i = 0; i<reverseStudents.size(); i++) {
+            Map.Entry<Double, String> entry = entries.next();
+            if (i == 3) {
+                break;
+            }
+            top3.add(entry.getValue());
+        }
+        System.out.println(top3);
+    }
+
+    public static void main(String[] args) {
+        addStudent(4.7, "Newton");
+        addStudent(4.4, "Hawking");
+        addStudent(4.9, "Einstein");
+        addStudent(3.8, "Bor");
+        addStudent(4.1, "Tesla");
+        addStudent(5, "Mendeleev");
+        System.out.println(students);
+        excellentStudents();
+    }
+}
