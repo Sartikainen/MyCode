@@ -1,0 +1,23 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.OptionalDouble;
+
+public class Length {
+    public static void main(String[] args) throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader("file"));
+        OptionalDouble max = reader.lines()
+                .mapToDouble(line -> {
+                    String[] points = line.split("-");
+                    String[] point0 = points[0].split(",");
+                    String[] point1 = points[1].split(",");
+                    int x1 = Integer.parseInt(point0[0].substring(2));
+                    int y1 = Integer.parseInt(point0[1].substring(2));
+                    int x2 = Integer.parseInt(point1[0].substring(2));
+                    int y2 = Integer.parseInt(point1[1].substring(2));
+                    return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                })
+                .max();
+        System.out.println(max.orElseGet(() -> 0));
+    }
+}
